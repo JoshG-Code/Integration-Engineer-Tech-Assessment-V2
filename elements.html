@@ -1,8 +1,5 @@
-<!DOCTYPE HTML>
-
-<html>
-	<head>
-		<script>
+<html><head>
+		<script async="" src="https://www.googletagmanager.com/gtm.js?id=GTM-TVG7PMGK"></script><script>
     	window.dataLayer = window.dataLayer || [];
   		</script>
 		
@@ -83,14 +80,82 @@
       </a>
     </li>
   </ul>
+    <!-- Purchase Modal -->
+<div id="purchase-modal" style="display:none; position:fixed; z-index:9999; left:0; top:0; width:100%; height:100%; background:rgba(0,0,0,0.75);">
 
-</section>
+  <div style="
+    background:#fff;
+    max-width:500px;
+    margin:80px auto;
+    padding:30px;
+    border-radius:10px;
+    color:#000;
+  ">
+
+    <h2>Complete Purchase</h2>
+
+    <p style="color:#cc0000;">
+      <strong>Testing Environment Only:</strong><br>
+      This page is part of a technical assessment demonstration.
+      No real payments are processed, stored, or transmitted.
+      Please do not enter real payment information.
+    </p>
+
+    <hr>
+
+    <label>Cardholder Name</label>
+    <input type="text" id="card-name" placeholder="John Doe">
+
+    <br><br>
+
+    <label>Card Number</label>
+    <input type="text" id="card-number" placeholder="1111 2222 3333 4444">
+
+    <br><br>
+
+    <label>Expiration Date</label>
+    <input type="text" id="card-exp" placeholder="MM/YY">
+
+    <br><br>
+
+    <label>CVV</label>
+    <input type="text" id="card-cvv" placeholder="123">
+
+    <br><br>
+
+    <ul class="actions stacked">
+      <li>
+        <a href="#" id="autofill-btn" class="button">
+          Autofill Test Payment Info
+        </a>
+      </li>
+
+      <li>
+        <a href="#" id="confirm-purchase-btn" class="button primary">
+          Confirm Purchase
+        </a>
+      </li>
+
+      <li>
+        <a href="#" id="close-modal-btn" class="button">
+          Cancel
+        </a>
+      </li>
+    </ul>
 
   </div>
 
 </div>
 
+</section>
+
+  </div>
+
+<div class="bg fixed" style="transform: none;"></div><a href="#navPanel" id="navPanelToggle" class="alt">Menu</a></div>
+
 <script>
+
+
   window.dataLayer = window.dataLayer || [];
 
   window.dataLayer.push({
@@ -99,26 +164,71 @@
     productPrice: document.getElementById("product-price").innerText
   });
 
-  document.getElementById("purchase-btn").addEventListener("click", async () => {
+  const purchaseBtn = document.getElementById("purchase-btn");
+  const modal = document.getElementById("purchase-modal");
+  const closeModalBtn = document.getElementById("close-modal-btn");
+  const autofillBtn = document.getElementById("autofill-btn");
+  const confirmPurchaseBtn = document.getElementById("confirm-purchase-btn");
+
+  purchaseBtn.addEventListener("click", () => {
+    modal.style.display = "block";
+  });
+
+  closeModalBtn.addEventListener("click", () => {
+    modal.style.display = "none";
+  });
+
+  autofillBtn.addEventListener("click", () => {
+
+    document.getElementById("card-name").value = "Test User";
+    document.getElementById("card-number").value = "4111 1111 1111 1111";
+    document.getElementById("card-exp").value = "12/29";
+    document.getElementById("card-cvv").value = "123";
+
+  });
+
+  confirmPurchaseBtn.addEventListener("click", async () => {
 
     const payload = {
       productName: document.getElementById("product-name").innerText,
-      productPrice: document.getElementById("product-price").innerText
+      productPrice: document.getElementById("product-price").innerText,
+      paymentMethod: "Test Credit Card"
     };
 
-    const res = await fetch("https://httpbin.org/post", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(payload)
-    });
+    try {
 
-    const data = await res.json();
-    console.log(data);
+      const res = await fetch("https://httpbin.org/post", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(payload)
+      });
 
-    alert("Purchase simulated!");
+      const data = await res.json();
+
+      console.log("API Response:", data);
+
+      window.dataLayer.push({
+        event: "purchase_complete",
+        productName: payload.productName,
+        productPrice: payload.productPrice
+      });
+
+      alert("Purchase simulated successfully!");
+
+      modal.style.display = "none";
+
+    } catch (error) {
+
+      console.error(error);
+
+      alert("An error occurred while simulating the purchase.");
+
+    }
+
   });
+
 </script>
 
 			<script src="assets/js/jquery.min.js"></script>
@@ -127,7 +237,7 @@
 			<script src="assets/js/browser.min.js"></script>
 			<script src="assets/js/breakpoints.min.js"></script>
 			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script><div id="navPanel"><nav><ul class="links">
+			<script src="assets/js/main.js"></script><div id="navPanel"><nav></nav><a href="#navPanel" class="close" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></a></div><div id="navPanel"><nav><ul class="links">
 							<li><a href="index.html">This is Massively</a></li>
 							<li><a href="generic.html">Generic Page</a></li>
 							<li class="active"><a href="elements.html">Elements Reference</a></li>
@@ -139,4 +249,5 @@
 						</ul></nav><a href="#navPanel" class="close" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></a></div>
 
 	
-</body><b2f3e868-4d7e-48ae-84c1-1ec1ef8fb003 tabindex="1" role="region"></b2f3e868-4d7e-48ae-84c1-1ec1ef8fb003></html>
+<b2f3e868-4d7e-48ae-84c1-1ec1ef8fb003 tabindex="1" role="region"></b2f3e868-4d7e-48ae-84c1-1ec1ef8fb003>
+</body><f222188e-01e7-46d8-a8d4-2a28c5a402f1 tabindex="1" role="region"></f222188e-01e7-46d8-a8d4-2a28c5a402f1></html>
