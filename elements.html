@@ -68,6 +68,13 @@
     <strong>Price:</strong> $19.99
   </p>
 
+		
+<!--
+========================================
+ASSESSMENT REQUIREMENT:
+	GTM 
+========================================
+-->
   <h3 id="product-name">Project Vector</h3>
   <span id="product-price">19.99</span>
 
@@ -155,15 +162,38 @@
 
 <script>
 
+/*
+==============================
+GOOGLE TAG MANAGER DATA LAYER
+==============================
+
+Initializes the GTM data layer if it does not already exist.
+This allows events and product information to be tracked.
+*/
 
   window.dataLayer = window.dataLayer || [];
 
+/*
+========================================
+ASSESSMENT REQUIREMENT:
+Push product data to GTM on page load
+========================================
+
+Sends product information into the GTM data layer
+when the page loads so it can be tracked by Google
+Tag Manager or analytics platforms.
+*/
   window.dataLayer.push({
     event: "product_view",
     productName: document.getElementById("product-name").innerText,
     productPrice: document.getElementById("product-price").innerText
   });
 
+/*
+=========================
+UI ELEMENT REFERENCES
+=========================
+*/
   const purchaseBtn = document.getElementById("purchase-btn");
   const modal = document.getElementById("purchase-modal");
   const closeModalBtn = document.getElementById("close-modal-btn");
@@ -178,6 +208,14 @@
     modal.style.display = "none";
   });
 
+/*
+========================================
+Autofills fake payment information
+========================================
+This is included for demonstration/testing purposes only.
+No real payment information should be entered.
+*/
+	
   autofillBtn.addEventListener("click", () => {
 
     document.getElementById("card-name").value = "Test User";
@@ -186,6 +224,18 @@
     document.getElementById("card-cvv").value = "123";
 
   });
+ /*
+    ========================================
+    ASSESSMENT REQUIREMENT:
+    Send POST API request
+    ========================================
+
+    Sends a POST request to https://httpbin.org/post
+    containing product information stored on the page.
+
+    The response JSON is logged to the browser console
+    for verification/debugging purposes.
+  */
 
   confirmPurchaseBtn.addEventListener("click", async () => {
 
@@ -204,12 +254,23 @@
         },
         body: JSON.stringify(payload)
       });
-
+    
+	/*
+    	Logs the API response payload to the console
+    	as required by the assessment.
+    */
+		
       const data = await res.json();
 
       console.log("API Response:", data);
-
-      window.dataLayer.push({
+	
+      /*
+        Optional additional GTM event:
+        Tracks completed simulated purchases.
+		test with : window.google_tag_manager
+		or : document.querySelector('script[src*="googletagmanager"]')
+      */
+		window.dataLayer.push({
         event: "purchase_complete",
         productName: payload.productName,
         productPrice: payload.productPrice
